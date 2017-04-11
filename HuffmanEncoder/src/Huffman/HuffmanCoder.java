@@ -64,6 +64,7 @@ public final class HuffmanCoder {
             Logger.getLogger(HuffmanCoder.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        //write converted text file
         BufferedOutputStream dataWriter;
         try
         {
@@ -74,7 +75,6 @@ public final class HuffmanCoder {
                 dataWriter.write(character);
             }
             dataWriter.close();
-
         }
         catch (FileNotFoundException ex)
         {
@@ -85,5 +85,4 @@ public final class HuffmanCoder {
             Logger.getLogger(HuffmanCoder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

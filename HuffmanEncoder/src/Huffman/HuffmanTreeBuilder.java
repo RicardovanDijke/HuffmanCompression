@@ -1,8 +1,5 @@
 package Huffman;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -13,15 +10,16 @@ import java.util.PriorityQueue;
 public class HuffmanTreeBuilder {
     public TreeData treeData = new TreeData();
 
-    private Map.Entry<Character,Integer> firstChar;
+    private Map.Entry<Character, Integer> firstChar;
+
     public HuffmanTree buildTree(Map<Character, Integer> charFreqs)
     {
-        PriorityQueue<HuffmanTree> trees = new PriorityQueue<HuffmanTree>();
+        PriorityQueue<HuffmanTree> trees = new PriorityQueue<>();
 
         boolean firstEntry = true;
         for (Map.Entry<Character, Integer> i : charFreqs.entrySet())
         {
-           if (firstEntry)
+            if (firstEntry)
             {
                 firstEntry = false;
                 firstChar = i;
@@ -32,7 +30,6 @@ public class HuffmanTreeBuilder {
             }
         }
 
-      //  trees.offer(new HuffmanLeaf())
         assert trees.size() > 0;
 
         System.out.println("=====Starting sort=====");
@@ -41,33 +38,12 @@ public class HuffmanTreeBuilder {
             HuffmanTree tree1 = trees.poll();
             HuffmanTree tree2 = trees.poll();
             trees.offer(new HuffmanNode(tree1, tree2));
-
-            //This is for debugging only
-            if (false)
-            {
-                Iterator it = trees.iterator();
-
-                while (it.hasNext())
-                {
-                    Object o = it.next();
-                    if (o instanceof HuffmanTree)
-                    {
-                        HuffmanTree tree = (HuffmanTree) o;
-                        System.out.println(tree.frequency);
-                    }
-                    else if (o instanceof HuffmanLeaf)
-                    {
-                        HuffmanLeaf leaf = (HuffmanLeaf) o;
-                        System.out.println(leaf.frequency + " + " + leaf.value);
-                    }
-                }
-            }
         }
 
-                trees.offer(new HuffmanLeaf(firstChar.getValue(), firstChar.getKey()));
-           HuffmanTree tree1 = trees.poll();
-            HuffmanTree tree2 = trees.poll();
-            trees.offer(new HuffmanNode(tree1, tree2));
+        trees.offer(new HuffmanLeaf(firstChar.getValue(), firstChar.getKey()));
+        HuffmanTree tree1 = trees.poll();
+        HuffmanTree tree2 = trees.poll();
+        trees.offer(new HuffmanNode(tree1, tree2));
         return trees.poll();
     }
 
@@ -78,11 +54,7 @@ public class HuffmanTreeBuilder {
         {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
 
-            // print out character, frequency, and code for this leaf (which is just the prefix)
             treeData.AddValue((int) leaf.value, prefix.toString());
-            //treeData..add( + ":" + prefix + "\n");
-            //System.out.println((int)leaf.value + "\t" + leaf.frequency + "\t" + prefix + "\n");
-
         }
         else if (tree instanceof HuffmanNode)
         {
@@ -99,10 +71,4 @@ public class HuffmanTreeBuilder {
             prefix.deleteCharAt(prefix.length() - 1);
         }
     }
-
-    public void encodeText(String text)
-    {
-
-    }
-
 }
